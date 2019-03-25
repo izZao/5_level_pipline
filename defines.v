@@ -26,7 +26,7 @@
 `define ChipDisable 1'b0
 
 
-//ָ��
+//instruction macro definiton
 `define EXE_ORI  6'b001101
 
 
@@ -46,14 +46,14 @@
 `define EXE_RES_NOP 3'b000
 
 
-//ָ��洢��inst_rom
+//rom macro definition
 `define InstAddrBus 31:0
 `define InstBus 31:0
 `define InstMemNum 131071
 `define InstMemNumLog2 17
 
 
-//ͨ�üĴ���regfile
+//regfile macro definition
 `define RegAddrBus 4:0
 `define RegBus 31:0
 `define RegWidth 32

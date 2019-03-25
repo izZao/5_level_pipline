@@ -6,12 +6,12 @@ module ex_mem(
 	input wire		rst,
 	
 	
-	//����ִ�н׶ε���Ϣ	
+	//message from ex module
 	input wire[`RegAddrBus]       ex_wd,
 	input wire                    ex_wreg,
 	input wire[`RegBus]			  ex_wdata, 	
 	
-	//�͵��ô�׶ε���Ϣ
+	//message to mem module
 	output reg[`RegAddrBus]      mem_wd,
 	output reg                   mem_wreg,
 	output reg[`RegBus]			 mem_wdata

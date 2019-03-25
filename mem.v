@@ -2,17 +2,17 @@
 
 module mem(
 
-	input wire										rst,
+	input wire rst,
 	
-	//����ִ�н׶ε���Ϣ	
+	//message from ex moduel
 	input wire[`RegAddrBus]       wd_i,
 	input wire                    wreg_i,
-	input wire[`RegBus]					  wdata_i,
+	input wire[`RegBus]			  wdata_i,
 	
-	//�͵���д�׶ε���Ϣ
+	//result of mem moduel
 	output reg[`RegAddrBus]      wd_o,
 	output reg                   wreg_o,
-	output reg[`RegBus]					 wdata_o
+	output reg[`RegBus]			 wdata_o
 	
 );
 

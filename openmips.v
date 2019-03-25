@@ -2,21 +2,21 @@
 
 module openmips(
 
-	input	wire										clk,
-	input wire										rst,
+	input wire	clk,
+	input wire	rst,
 	
  
-	input wire[`RegBus]           rom_data_i,
-	output wire[`RegBus]           rom_addr_o,
-	output wire                    rom_ce_o
-	
+	input wire[`RegBus]   rom_data_i,
+	output wire[`RegBus]  rom_addr_o,
+	output wire           rom_ce_o
 );
 
+	//connect if/id with id module
 	wire[`InstAddrBus] pc;
 	wire[`InstAddrBus] id_pc_i;
 	wire[`InstBus] id_inst_i;
 	
-	//��������׶�IDģ��������ID/EXģ�������
+	//connect id module with id/ex module
 	wire[`AluOpBus] id_aluop_o;
 	wire[`AluSelBus] id_alusel_o;
 	wire[`RegBus] id_reg1_o;
@@ -24,7 +24,7 @@ module openmips(
 	wire id_wreg_o;
 	wire[`RegAddrBus] id_wd_o;
 	
-	//����ID/EXģ��������ִ�н׶�EXģ�������
+	//connect id/ex with ex module
 	wire[`AluOpBus] ex_aluop_i;
 	wire[`AluSelBus] ex_alusel_i;
 	wire[`RegBus] ex_reg1_i;
@@ -32,35 +32,35 @@ module openmips(
 	wire ex_wreg_i;
 	wire[`RegAddrBus] ex_wd_i;
 	
-	//����ִ�н׶�EXģ��������EX/MEMģ�������
+	//connect ex with ex/mem module
 	wire ex_wreg_o;
 	wire[`RegAddrBus] ex_wd_o;
 	wire[`RegBus] ex_wdata_o;
 
-	//����EX/MEMģ��������ô�׶�MEMģ�������
+	//connect ex/mem with mem module
 	wire mem_wreg_i;
 	wire[`RegAddrBus] mem_wd_i;
 	wire[`RegBus] mem_wdata_i;
 
-	//���ӷô�׶�MEMģ��������MEM/WBģ�������
+	//connect mem with mem/wb module
 	wire mem_wreg_o;
 	wire[`RegAddrBus] mem_wd_o;
 	wire[`RegBus] mem_wdata_o;
 	
-	//����MEM/WBģ���������д�׶ε�����	
+	//connect mem/wb with wb
 	wire wb_wreg_i;
 	wire[`RegAddrBus] wb_wd_i;
 	wire[`RegBus] wb_wdata_i;
 	
-	//��������׶�IDģ����ͨ�üĴ���Regfileģ��
-  wire reg1_read;
-  wire reg2_read;
-  wire[`RegBus] reg1_data;
-  wire[`RegBus] reg2_data;
-  wire[`RegAddrBus] reg1_addr;
-  wire[`RegAddrBus] reg2_addr;
+	//connect id module with regfile
+    wire reg1_read;
+    wire reg2_read;
+    wire[`RegBus] reg1_data;
+    wire[`RegBus] reg2_data;
+    wire[`RegAddrBus] reg1_addr;
+    wire[`RegAddrBus] reg2_addr;
   
-  //pc_reg����
+  //pc_reg
 	pc_reg pc_reg0(
 		.clk(clk),
 		.rst(rst),
@@ -71,7 +71,7 @@ module openmips(
 	
   assign rom_addr_o = pc;
 
-  //IF/IDģ������
+  //if/id
 	if_id if_id0(
 		.clk(clk),
 		.rst(rst),
@@ -81,7 +81,7 @@ module openmips(
 		.id_inst(id_inst_i)      	
 	);
 	
-	//����׶�IDģ��
+	//id
 	id id0(
 		.rst(rst),
 		.pc_i(id_pc_i),
@@ -90,14 +90,14 @@ module openmips(
 		.reg1_data_i(reg1_data),
 		.reg2_data_i(reg2_data),
 
-		//�͵�regfile����Ϣ
+		//
 		.reg1_read_o(reg1_read),
 		.reg2_read_o(reg2_read), 	  
 
 		.reg1_addr_o(reg1_addr),
 		.reg2_addr_o(reg2_addr), 
 	  
-		//�͵�ID/EXģ�����Ϣ
+		//
 		.aluop_o(id_aluop_o),
 		.alusel_o(id_alusel_o),
 		.reg1_o(id_reg1_o),
@@ -106,7 +106,7 @@ module openmips(
 		.wreg_o(id_wreg_o)
 	);
 
-  //ͨ�üĴ���Regfile����
+  //regfile
 	regfile regfile1(
 		.clk (clk),
 		.rst (rst),
@@ -121,12 +121,12 @@ module openmips(
 		.rdata2 (reg2_data)
 	);
 
-	//ID/EXģ��
+	//id/ex
 	id_ex id_ex0(
 		.clk(clk),
 		.rst(rst),
 		
-		//������׶�IDģ�鴫�ݵ���Ϣ
+		//
 		.id_aluop(id_aluop_o),
 		.id_alusel(id_alusel_o),
 		.id_reg1(id_reg1_o),
@@ -134,7 +134,7 @@ module openmips(
 		.id_wd(id_wd_o),
 		.id_wreg(id_wreg_o),
 	
-		//���ݵ�ִ�н׶�EXģ�����Ϣ
+		//
 		.ex_aluop(ex_aluop_i),
 		.ex_alusel(ex_alusel_i),
 		.ex_reg1(ex_reg1_i),
@@ -143,11 +143,11 @@ module openmips(
 		.ex_wreg(ex_wreg_i)
 	);		
 	
-	//EXģ��
+	//ex
 	ex ex0(
 		.rst(rst),
 	
-		//�͵�ִ�н׶�EXģ�����Ϣ
+		//
 		.aluop_i(ex_aluop_i),
 		.alusel_i(ex_alusel_i),
 		.reg1_i(ex_reg1_i),
@@ -155,25 +155,25 @@ module openmips(
 		.wd_i(ex_wd_i),
 		.wreg_i(ex_wreg_i),
 	  
-	  //EXģ��������EX/MEMģ����Ϣ
+	    //
 		.wd_o(ex_wd_o),
 		.wreg_o(ex_wreg_o),
 		.wdata_o(ex_wdata_o)
 		
 	);
 
-  //EX/MEMģ��
+  //ex/mem
   ex_mem ex_mem0(
 		.clk(clk),
 		.rst(rst),
 	  
-		//����ִ�н׶�EXģ�����Ϣ	
+		//
 		.ex_wd(ex_wd_o),
 		.ex_wreg(ex_wreg_o),
 		.ex_wdata(ex_wdata_o),
 	
 
-		//�͵��ô�׶�MEMģ�����Ϣ
+		//
 		.mem_wd(mem_wd_i),
 		.mem_wreg(mem_wreg_i),
 		.mem_wdata(mem_wdata_i)
@@ -181,32 +181,32 @@ module openmips(
 						       	
 	);
 	
-  //MEMģ������
+  //mem
 	mem mem0(
 		.rst(rst),
 	
-		//����EX/MEMģ�����Ϣ	
+		//
 		.wd_i(mem_wd_i),
 		.wreg_i(mem_wreg_i),
 		.wdata_i(mem_wdata_i),
 	  
-		//�͵�MEM/WBģ�����Ϣ
+		//
 		.wd_o(mem_wd_o),
 		.wreg_o(mem_wreg_o),
 		.wdata_o(mem_wdata_o)
 	);
 
-  //MEM/WBģ��
+  //mem/wb
 	mem_wb mem_wb0(
 		.clk(clk),
 		.rst(rst),
 
-		//���Էô�׶�MEMģ�����Ϣ	
+		//	
 		.mem_wd(mem_wd_o),
 		.mem_wreg(mem_wreg_o),
 		.mem_wdata(mem_wdata_o),
 	
-		//�͵���д�׶ε���Ϣ
+		//
 		.wb_wd(wb_wd_i),
 		.wb_wreg(wb_wreg_i),
 		.wb_wdata(wb_wdata_i)

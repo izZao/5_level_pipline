@@ -2,11 +2,11 @@
 
 module id_ex(
 
-	input	wire										clk,
-	input wire										rst,
+	input wire	clk,
+	input wire	rst,
 
 	
-	//������׶δ��ݵ���Ϣ
+	//message from id module
 	input wire[`AluOpBus]         id_aluop,
 	input wire[`AluSelBus]        id_alusel,
 	input wire[`RegBus]           id_reg1,
@@ -14,7 +14,7 @@ module id_ex(
 	input wire[`RegAddrBus]       id_wd,
 	input wire                    id_wreg,	
 	
-	//���ݵ�ִ�н׶ε���Ϣ
+	//message to ex module
 	output reg[`AluOpBus]         ex_aluop,
 	output reg[`AluSelBus]        ex_alusel,
 	output reg[`RegBus]           ex_reg1,

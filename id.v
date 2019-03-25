@@ -7,16 +7,17 @@ module id(
 	input wire[`InstAddrBus]			pc_i,
 	input wire[`InstBus]          inst_i,
 
+	//read the value from refile
 	input wire[`RegBus]           reg1_data_i,
 	input wire[`RegBus]           reg2_data_i,
 
-	//�͵�regfile����Ϣ
+	//the message of putting into regfile
 	output reg                    reg1_read_o,
 	output reg                    reg2_read_o,     
 	output reg[`RegAddrBus]       reg1_addr_o,
 	output reg[`RegAddrBus]       reg2_addr_o, 	      
 	
-	//�͵�ִ�н׶ε���Ϣ
+	//give to excution
 	output reg[`AluOpBus]         aluop_o,
 	output reg[`AluSelBus]        alusel_o,
 	output reg[`RegBus]           reg1_o,
@@ -57,13 +58,17 @@ module id(
 			reg2_addr_o <= inst_i[20:16];		
 			imm <= `ZeroWord;			
 		  case (op)
-		  	`EXE_ORI:			begin                        //ORIָ��
-		  		wreg_o <= `WriteEnable;		aluop_o <= `EXE_OR_OP;
-		  		alusel_o <= `EXE_RES_LOGIC; reg1_read_o <= 1'b1;	reg2_read_o <= 1'b0;	  	
-					imm <= {16'h0, inst_i[15:0]};		wd_o <= inst_i[20:16];
-					instvalid <= `InstValid;	
+		  	`EXE_ORI:			begin                        
+		  		wreg_o <= `WriteEnable;		
+				aluop_o <= `EXE_OR_OP;
+		  		alusel_o <= `EXE_RES_LOGIC; 
+				reg1_read_o <= 1'b1;	
+				reg2_read_o <= 1'b0;	  	
+				imm <= {16'h0, inst_i[15:0]};		
+				wd_o <= inst_i[20:16];
+				instvalid <= `InstValid;	
 		  	end 							 
-		    default:			begin
+		    default:begin
 		    end
 		  endcase		  //case op			
 		end       //if

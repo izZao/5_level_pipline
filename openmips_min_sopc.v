@@ -7,7 +7,7 @@ module openmips_min_sopc(
 	
 );
 
-  //����ָ��洢��
+  //connect to inst_rom
   wire[`InstAddrBus] inst_addr;
   wire[`InstBus] inst;
   wire rom_ce;

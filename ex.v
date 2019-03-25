@@ -2,9 +2,9 @@
 
 module ex(
 
-	input wire										rst,
+	input wire	rst,
 	
-	//�͵�ִ�н׶ε���Ϣ
+	//message to ex
 	input wire[`AluOpBus]         aluop_i,
 	input wire[`AluSelBus]        alusel_i,
 	input wire[`RegBus]           reg1_i,
@@ -12,10 +12,10 @@ module ex(
 	input wire[`RegAddrBus]       wd_i,
 	input wire                    wreg_i,
 
-	
+	//result
 	output reg[`RegAddrBus]       wd_o,
 	output reg                    wreg_o,
-	output reg[`RegBus]						wdata_o
+	output reg[`RegBus]			  wdata_o
 	
 );
 

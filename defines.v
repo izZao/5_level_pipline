@@ -1,4 +1,4 @@
-//global macro definition
+//全局
 `define RstEnable 1'b1
 `define RstDisable 1'b0
 `define ZeroWord 32'h00000000
@@ -26,7 +26,7 @@
 `define ChipDisable 1'b0
 
 
-//instruction macro definiton
+//指令
 `define EXE_AND  6'b100100
 `define EXE_OR   6'b100101
 `define EXE_XOR 6'b100110
@@ -127,7 +127,6 @@
 `define EXE_SPECIAL_INST 6'b000000
 `define EXE_REGIMM_INST 6'b000001
 `define EXE_SPECIAL2_INST 6'b011100
-
 
 //AluOp
 `define EXE_AND_OP   8'b00100100
@@ -241,21 +240,20 @@
 `define EXE_RES_NOP 3'b000
 
 
-//rom macro definition
+//指令存储器inst_rom
 `define InstAddrBus 31:0
 `define InstBus 31:0
 `define InstMemNum 131071
 `define InstMemNumLog2 17
 
-
-//data_ram
+//数据存储器data_ram
 `define DataAddrBus 31:0
 `define DataBus 31:0
 `define DataMemNum 131071
 `define DataMemNumLog2 17
 `define ByteWidth 7:0
 
-//通regfile
+//通用寄存器regfile
 `define RegAddrBus 4:0
 `define RegBus 31:0
 `define RegWidth 32
@@ -265,7 +263,7 @@
 `define RegNumLog2 5
 `define NOPRegAddr 5'b00000
 
-//div
+//除法div
 `define DivFree 2'b00
 `define DivByZero 2'b01
 `define DivOn 2'b10
@@ -275,11 +273,11 @@
 `define DivStart 1'b1
 `define DivStop 1'b0
 
-//CP0
-`define CP0_REG_COUNT    5'b01001     
-`define CP0_REG_COMPARE    5'b01011    
-`define CP0_REG_STATUS    5'b01100     
-`define CP0_REG_CAUSE    5'b01101     
-`define CP0_REG_EPC    5'b01110        
-`define CP0_REG_PrId    5'b01111         
-`define CP0_REG_CONFIG    5'b10000  
+//CP0寄存器地址
+`define CP0_REG_COUNT    5'b01001        //可读写
+`define CP0_REG_COMPARE    5'b01011      //可读写
+`define CP0_REG_STATUS    5'b01100       //可读写
+`define CP0_REG_CAUSE    5'b01101        //只读
+`define CP0_REG_EPC    5'b01110          //可读写
+`define CP0_REG_PrId    5'b01111         //只读
+`define CP0_REG_CONFIG    5'b10000       //只读

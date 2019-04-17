@@ -22,57 +22,63 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
-// Module:  pc_reg
-// File:    pc_reg.v
+// Module:  data_ram
+// File:    data_ram.v
 // Author:  Lei Silei
 // E-mail:  leishangwen@163.com
-// Description: 指令指针寄存器PC
+// Description: 数据存储器
 // Revision: 1.0
 //////////////////////////////////////////////////////////////////////
 
 `include "defines.v"
 
-module pc_reg(
+module data_ram(
 
 	input	wire										clk,
-	input wire										rst,
-
-	//来自控制模块的信息
-	input wire[5:0]               stall,
-	input wire                    flush,
-	input wire[`RegBus]           new_pc,
-
-	//来自译码阶段的信息
-	input wire                    branch_flag_i,
-	input wire[`RegBus]           branch_target_address_i,
-	
-	output reg[`InstAddrBus]			pc,
-	output reg                    ce
+	input wire										ce,
+	input wire										we,
+	input wire[`DataAddrBus]			addr,
+	input wire[3:0]								sel,
+	input wire[`DataBus]						data_i,
+	output reg[`DataBus]					data_o
 	
 );
 
-	always @ (posedge clk) begin
-		if (ce == `ChipDisable) begin
-			pc <= 32'h00000000;
-		end else begin
-			if(flush == 1'b1) begin
-				pc <= new_pc;
-			end else if(stall[0] == `NoStop) begin
-				if(branch_flag_i == `Branch) begin
-					pc <= branch_target_address_i;
-				end else begin
-		  		pc <= pc + 4'h4;
-		  	end
-			end
-		end
-	end
+	reg[`ByteWidth]  data_mem0[0:`DataMemNum-1];
+	reg[`ByteWidth]  data_mem1[0:`DataMemNum-1];
+	reg[`ByteWidth]  data_mem2[0:`DataMemNum-1];
+	reg[`ByteWidth]  data_mem3[0:`DataMemNum-1];
 
 	always @ (posedge clk) begin
-		if (rst == `RstEnable) begin
-			ce <= `ChipDisable;
-		end else begin
-			ce <= `ChipEnable;
+		if (ce == `ChipDisable) begin
+			//data_o <= ZeroWord;
+		end else if(we == `WriteEnable) begin
+			  if (sel[3] == 1'b1) begin
+		      data_mem3[addr[`DataMemNumLog2+1:2]] <= data_i[31:24];
+		    end
+			  if (sel[2] == 1'b1) begin
+		      data_mem2[addr[`DataMemNumLog2+1:2]] <= data_i[23:16];
+		    end
+		    if (sel[1] == 1'b1) begin
+		      data_mem1[addr[`DataMemNumLog2+1:2]] <= data_i[15:8];
+		    end
+			  if (sel[0] == 1'b1) begin
+		      data_mem0[addr[`DataMemNumLog2+1:2]] <= data_i[7:0];
+		    end			   	    
 		end
 	end
+	
+	always @ (*) begin
+		if (ce == `ChipDisable) begin
+			data_o <= `ZeroWord;
+	  end else if(we == `WriteDisable) begin
+		    data_o <= {data_mem3[addr[`DataMemNumLog2+1:2]],
+		               data_mem2[addr[`DataMemNumLog2+1:2]],
+		               data_mem1[addr[`DataMemNumLog2+1:2]],
+		               data_mem0[addr[`DataMemNumLog2+1:2]]};
+		end else begin
+				data_o <= `ZeroWord;
+		end
+	end		
 
 endmodule

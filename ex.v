@@ -1,34 +1,4 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  ex
-// File:    ex.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description: Ö´ÐÐ½×¶Î
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
@@ -36,7 +6,7 @@ module ex(
 
 	input wire										rst,
 	
-	//ËÍµ½Ö´ÐÐ½×¶ÎµÄÐÅÏ¢
+	//ï¿½Íµï¿½Ö´ï¿½Ð½×¶Îµï¿½ï¿½ï¿½Ï¢
 	input wire[`AluOpBus]         aluop_i,
 	input wire[`AluSelBus]        alusel_i,
 	input wire[`RegBus]           reg1_i,
@@ -47,16 +17,16 @@ module ex(
 	input wire[31:0]              excepttype_i,
 	input wire[`RegBus]          current_inst_address_i,
 	
-	//HI¡¢LO¼Ä´æÆ÷µÄÖµ
+	//HIï¿½ï¿½LOï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	input wire[`RegBus]           hi_i,
 	input wire[`RegBus]           lo_i,
 
-	//»ØÐ´½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´HI¡¢LO£¬ÓÃÓÚ¼ì²âHI¡¢LOµÄÊý¾ÝÏà¹Ø
+	//ï¿½ï¿½Ð´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	input wire[`RegBus]           wb_hi_i,
 	input wire[`RegBus]           wb_lo_i,
 	input wire                    wb_whilo_i,
 	
-	//·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´HI¡¢LO£¬ÓÃÓÚ¼ì²âHI¡¢LOµÄÊý¾ÝÏà¹Ø
+	//ï¿½Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½HIï¿½ï¿½LOï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	input wire[`RegBus]           mem_hi_i,
 	input wire[`RegBus]           mem_lo_i,
 	input wire                    mem_whilo_i,
@@ -64,29 +34,29 @@ module ex(
 	input wire[`DoubleRegBus]     hilo_temp_i,
 	input wire[1:0]               cnt_i,
 
-	//Óë³ý·¨Ä£¿éÏàÁ¬
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	input wire[`DoubleRegBus]     div_result_i,
 	input wire                    div_ready_i,
 
-	//ÊÇ·ñ×ªÒÆ¡¢ÒÔ¼°link address
+	//ï¿½Ç·ï¿½×ªï¿½Æ¡ï¿½ï¿½Ô¼ï¿½link address
 	input wire[`RegBus]           link_address_i,
 	input wire                    is_in_delayslot_i,	
 
-	//·Ã´æ½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´CP0£¬ÓÃÀ´¼ì²âÊý¾ÝÏà¹Ø
+	//ï¿½Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   input wire                    mem_cp0_reg_we,
 	input wire[4:0]               mem_cp0_reg_write_addr,
 	input wire[`RegBus]           mem_cp0_reg_data,
 	
-	//»ØÐ´½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´CP0£¬ÓÃÀ´¼ì²âÊý¾ÝÏà¹Ø
+	//ï¿½ï¿½Ð´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   input wire                    wb_cp0_reg_we,
 	input wire[4:0]               wb_cp0_reg_write_addr,
 	input wire[`RegBus]           wb_cp0_reg_data,
 
-	//ÓëCP0ÏàÁ¬£¬¶ÁÈ¡ÆäÖÐCP0¼Ä´æÆ÷µÄÖµ
+	//ï¿½ï¿½CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½CP0ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	input wire[`RegBus]           cp0_reg_data_i,
 	output reg[4:0]               cp0_reg_read_addr_o,
 
-	//ÏòÏÂÒ»Á÷Ë®¼¶´«µÝ£¬ÓÃÓÚÐ´CP0ÖÐµÄ¼Ä´æÆ÷
+	//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½Ð´CP0ï¿½ÐµÄ¼Ä´ï¿½ï¿½ï¿½
 	output reg                    cp0_reg_we_o,
 	output reg[4:0]               cp0_reg_write_addr_o,
 	output reg[`RegBus]           cp0_reg_data_o,
@@ -107,7 +77,7 @@ module ex(
 	output reg                    div_start_o,
 	output reg                    signed_div_o,
 
-	//ÏÂÃæÐÂÔöµÄ¼¸¸öÊä³öÊÇÎª¼ÓÔØ¡¢´æ´¢Ö¸Áî×¼±¸µÄ
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½
 	output wire[`AluOpBus]        aluop_o,
 	output wire[`RegBus]          mem_addr_o,
 	output wire[`RegBus]          reg2_o,
@@ -142,13 +112,13 @@ module ex(
 	reg trapassert;
 	reg ovassert;
 
-  //aluop_o´«µÝµ½·Ã´æ½×¶Î£¬ÓÃÓÚ¼ÓÔØ¡¢´æ´¢Ö¸Áî
+  //aluop_oï¿½ï¿½ï¿½Ýµï¿½ï¿½Ã´ï¿½×¶Î£ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½
   assign aluop_o = aluop_i;
   
-  //mem_addr´«µÝµ½·Ã´æ½×¶Î£¬ÊÇ¼ÓÔØ¡¢´æ´¢Ö¸Áî¶ÔÓ¦µÄ´æ´¢Æ÷µØÖ·
+  //mem_addrï¿½ï¿½ï¿½Ýµï¿½ï¿½Ã´ï¿½×¶Î£ï¿½ï¿½Ç¼ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½ï¿½Ó¦ï¿½Ä´æ´¢ï¿½ï¿½ï¿½ï¿½Ö·
   assign mem_addr_o = reg1_i + {{16{inst_i[15]}},inst_i[15:0]};
 
-  //½«Á½¸ö²Ù×÷ÊýÒ²´«µÝµ½·Ã´æ½×¶Î£¬Ò²ÊÇÎª¼ÇÔØ¡¢´æ´¢Ö¸Áî×¼±¸µÄ
+  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½Ýµï¿½ï¿½Ã´ï¿½×¶Î£ï¿½Ò²ï¿½ï¿½Îªï¿½ï¿½ï¿½Ø¡ï¿½ï¿½æ´¢Ö¸ï¿½ï¿½×¼ï¿½ï¿½ï¿½ï¿½
   assign reg2_o = reg2_i;
  
   assign excepttype_o = {excepttype_i[31:12],ovassert,trapassert,excepttype_i[9:8],8'h00};
@@ -303,7 +273,7 @@ module ex(
 		end
 	end
 
-  //È¡µÃ³Ë·¨²Ù×÷µÄ²Ù×÷Êý£¬Èç¹ûÊÇÓÐ·ûºÅ³ý·¨ÇÒ²Ù×÷ÊýÊÇ¸ºÊý£¬ÄÇÃ´È¡·´¼ÓÒ»
+  //È¡ï¿½Ã³Ë·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½Å³ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã´È¡ï¿½ï¿½ï¿½ï¿½Ò»
 	assign opdata1_mult = (((aluop_i == `EXE_MUL_OP) || (aluop_i == `EXE_MULT_OP) ||
 													(aluop_i == `EXE_MADD_OP) || (aluop_i == `EXE_MSUB_OP))
 													&& (reg1_i[31] == 1'b1)) ? (~reg1_i + 1) : reg1_i;
@@ -329,7 +299,7 @@ module ex(
 		end
 	end
 
-  //µÃµ½×îÐÂµÄHI¡¢LO¼Ä´æÆ÷µÄÖµ£¬´Ë´¦Òª½â¾öÖ¸ÁîÊý¾ÝÏà¹ØÎÊÌâ
+  //ï¿½Ãµï¿½ï¿½ï¿½ï¿½Âµï¿½HIï¿½ï¿½LOï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½Ë´ï¿½Òªï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			{HI,LO} <= {`ZeroWord,`ZeroWord};
@@ -346,7 +316,7 @@ module ex(
     stallreq = stallreq_for_madd_msub || stallreq_for_div;
   end
 
-  //MADD¡¢MADDU¡¢MSUB¡¢MSUBUÖ¸Áî
+  //MADDï¿½ï¿½MADDUï¿½ï¿½MSUBï¿½ï¿½MSUBUÖ¸ï¿½ï¿½
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			hilo_temp_o <= {`ZeroWord,`ZeroWord};
@@ -389,7 +359,7 @@ module ex(
 		end
 	end	
 
-  //DIV¡¢DIVUÖ¸Áî	
+  //DIVï¿½ï¿½DIVUÖ¸ï¿½ï¿½	
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			stallreq_for_div <= `NoStop;
@@ -452,7 +422,7 @@ module ex(
 		end
 	end	
 
-	//MFHI¡¢MFLO¡¢MOVN¡¢MOVZÖ¸Áî
+	//MFHIï¿½ï¿½MFLOï¿½ï¿½MOVNï¿½ï¿½MOVZÖ¸ï¿½ï¿½
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 	  	moveres <= `ZeroWord;

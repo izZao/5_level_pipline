@@ -1,36 +1,3 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  cp0_reg
-// File:    cp0_reg.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description:ÊµÏÖÁËCP0ÖÐµÄÒ»Ð©¼Ä´æÆ÷£¬¾ßÌåÓÐ£ºcount¡¢compare¡¢status¡¢
-//             cause¡¢EPC¡¢config¡¢PrId
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
-
 `include "defines.v"
 
 module cp0_reg(
@@ -66,13 +33,13 @@ module cp0_reg(
 		if(rst == `RstEnable) begin
 			count_o <= `ZeroWord;
 			compare_o <= `ZeroWord;
-			//status¼Ä´æÆ÷µÄCUÎª0001£¬±íÊ¾Ð­´¦ÀíÆ÷CP0´æÔÚ
+			//statusï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½CUÎª0001ï¿½ï¿½ï¿½ï¿½Ê¾Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CP0ï¿½ï¿½ï¿½ï¿½
 			status_o <= 32'b00010000000000000000000000000000;
 			cause_o <= `ZeroWord;
 			epc_o <= `ZeroWord;
-			//config¼Ä´æÆ÷µÄBEÎª1£¬±íÊ¾Big-Endian£»MTÎª00£¬±íÊ¾Ã»ÓÐMMU
+			//configï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½BEÎª1ï¿½ï¿½ï¿½ï¿½Ê¾Big-Endianï¿½ï¿½MTÎª00ï¿½ï¿½ï¿½ï¿½Ê¾Ã»ï¿½ï¿½MMU
 			config_o <= 32'b00000000000000001000000000000000;
-			//ÖÆ×÷ÕßÊÇL£¬¶ÔÓ¦µÄÊÇ0x48£¬ÀàÐÍÊÇ0x1£¬»ù±¾ÀàÐÍ£¬°æ±¾ºÅÊÇ1.0
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½ï¿½ï¿½0x48ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0x1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ï¿½æ±¾ï¿½ï¿½ï¿½ï¿½1.0
 			prid_o <= 32'b00000000010011000000000100000010;
       timer_int_o <= `InterruptNotAssert;
 		end else begin
@@ -100,7 +67,7 @@ module cp0_reg(
 						epc_o <= data_i;
 					end
 					`CP0_REG_CAUSE:	begin
-					  //cause¼Ä´æÆ÷Ö»ÓÐIP[1:0]¡¢IV¡¢WP×Ö¶ÎÊÇ¿ÉÐ´µÄ
+					  //causeï¿½Ä´ï¿½ï¿½ï¿½Ö»ï¿½ï¿½IP[1:0]ï¿½ï¿½IVï¿½ï¿½WPï¿½Ö¶ï¿½ï¿½Ç¿ï¿½Ð´ï¿½ï¿½
 						cause_o[9:8] <= data_i[9:8];
 						cause_o[23] <= data_i[23];
 						cause_o[22] <= data_i[22];

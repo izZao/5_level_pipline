@@ -1,34 +1,4 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  mem
-// File:    mem.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description: ·Ã´æ½×¶Î
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
@@ -36,7 +6,7 @@ module mem(
 
 	input wire										rst,
 	
-	//À´×ÔÖ´ÐÐ½×¶ÎµÄÐÅÏ¢	
+	//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½ï¿½ï¿½Ï¢	
 	input wire[`RegAddrBus]       wd_i,
 	input wire                    wreg_i,
 	input wire[`RegBus]					  wdata_i,
@@ -48,16 +18,16 @@ module mem(
 	input wire[`RegBus]          mem_addr_i,
 	input wire[`RegBus]          reg2_i,
 	
-	//À´×ÔmemoryµÄÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½memoryï¿½ï¿½ï¿½ï¿½Ï¢
 	input wire[`RegBus]          mem_data_i,
 
-	//LLbit_iÊÇLLbit¼Ä´æÆ÷µÄÖµ
+	//LLbit_iï¿½ï¿½LLbitï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµ
 	input wire                  LLbit_i,
-	//µ«²»Ò»¶¨ÊÇ×îÐÂÖµ£¬»ØÐ´½×¶Î¿ÉÄÜÒªÐ´LLbit£¬ËùÒÔ»¹Òª½øÒ»²½ÅÐ¶Ï
+	//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ð´ï¿½×¶Î¿ï¿½ï¿½ï¿½ÒªÐ´LLbitï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½Òªï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ð¶ï¿½
 	input wire                  wb_LLbit_we_i,
 	input wire                  wb_LLbit_value_i,
 
-	//Ð­´¦ÀíÆ÷CP0µÄÐ´ÐÅºÅ
+	//Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CP0ï¿½ï¿½Ð´ï¿½Åºï¿½
 	input wire                   cp0_reg_we_i,
 	input wire[4:0]              cp0_reg_write_addr_i,
 	input wire[`RegBus]          cp0_reg_data_i,
@@ -66,17 +36,17 @@ module mem(
 	input wire                   is_in_delayslot_i,
 	input wire[`RegBus]          current_inst_address_i,	
 	
-	//CP0µÄ¸÷¸ö¼Ä´æÆ÷µÄÖµ£¬µ«²»Ò»¶¨ÊÇ×îÐÂµÄÖµ£¬Òª·ÀÖ¹»ØÐ´½×¶ÎÖ¸ÁîÐ´CP0
+	//CP0ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½Öµï¿½ï¿½Òªï¿½ï¿½Ö¹ï¿½ï¿½Ð´ï¿½×¶ï¿½Ö¸ï¿½ï¿½Ð´CP0
 	input wire[`RegBus]          cp0_status_i,
 	input wire[`RegBus]          cp0_cause_i,
 	input wire[`RegBus]          cp0_epc_i,
 
-	//»ØÐ´½×¶ÎµÄÖ¸ÁîÊÇ·ñÒªÐ´CP0£¬ÓÃÀ´¼ì²âÊý¾ÝÏà¹Ø
+	//ï¿½ï¿½Ð´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ç·ï¿½ÒªÐ´CP0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   input wire                    wb_cp0_reg_we,
 	input wire[4:0]               wb_cp0_reg_write_addr,
 	input wire[`RegBus]           wb_cp0_reg_data,
 	
-	//ËÍµ½»ØÐ´½×¶ÎµÄÐÅÏ¢
+	//ï¿½Íµï¿½ï¿½ï¿½Ð´ï¿½×¶Îµï¿½ï¿½ï¿½Ï¢
 	output reg[`RegAddrBus]      wd_o,
 	output reg                   wreg_o,
 	output reg[`RegBus]					 wdata_o,
@@ -91,7 +61,7 @@ module mem(
 	output reg[4:0]              cp0_reg_write_addr_o,
 	output reg[`RegBus]          cp0_reg_data_o,
 	
-	//ËÍµ½memoryµÄÐÅÏ¢
+	//ï¿½Íµï¿½memoryï¿½ï¿½ï¿½ï¿½Ï¢
 	output reg[`RegBus]          mem_addr_o,
 	output wire									 mem_we_o,
 	output reg[3:0]              mem_sel_o,
@@ -120,7 +90,7 @@ module mem(
 	assign current_inst_address_o = current_inst_address_i;
 	assign cp0_epc_o = cp0_epc;
 
-  //»ñÈ¡×îÐÂµÄLLbitµÄÖµ
+  //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Âµï¿½LLbitï¿½ï¿½Öµ
 	always @ (*) begin
 		if(rst == `RstEnable) begin
 			LLbit <= 1'b0;
@@ -432,7 +402,7 @@ module mem(
 					end
 				end				
 				default:		begin
-          //Ê²Ã´Ò²²»×ö
+          //Ê²Ã´Ò²ï¿½ï¿½ï¿½ï¿½
 				end
 			endcase							
 		end    //if
@@ -491,7 +461,7 @@ module mem(
 					excepttype_o <= 32'h0000000d;        //trap
 				end else if(excepttype_i[11] == 1'b1) begin  //ov
 					excepttype_o <= 32'h0000000c;
-				end else if(excepttype_i[12] == 1'b1) begin  //·µ»ØÖ¸Áî
+				end else if(excepttype_i[12] == 1'b1) begin  //ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
 					excepttype_o <= 32'h0000000e;
 				end
 			end

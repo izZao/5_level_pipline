@@ -1,34 +1,4 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  ex_mem
-// File:    ex_mem.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description: EX/MEM½×¶ÎµÄ¼Ä´æÆ÷
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
+
 
 `include "defines.v"
 
@@ -37,11 +7,11 @@ module ex_mem(
 	input	wire										clk,
 	input wire										rst,
 
-	//À´×Ô¿ØÖÆÄ£¿éµÄÐÅÏ¢
+	//ï¿½ï¿½ï¿½Ô¿ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	input wire[5:0]							 stall,	
 	input wire                   flush,
 	
-	//À´×ÔÖ´ÐÐ½×¶ÎµÄÐÅÏ¢	
+	//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½ï¿½ï¿½Ï¢	
 	input wire[`RegAddrBus]       ex_wd,
 	input wire                    ex_wreg,
 	input wire[`RegBus]					 ex_wdata, 	
@@ -49,7 +19,7 @@ module ex_mem(
 	input wire[`RegBus]           ex_lo,
 	input wire                    ex_whilo, 	
 
-  //ÎªÊµÏÖ¼ÓÔØ¡¢·Ã´æÖ¸Áî¶øÌí¼Ó
+  //ÎªÊµï¿½Ö¼ï¿½ï¿½Ø¡ï¿½ï¿½Ã´ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   input wire[`AluOpBus]        ex_aluop,
 	input wire[`RegBus]          ex_mem_addr,
 	input wire[`RegBus]          ex_reg2,
@@ -65,7 +35,7 @@ module ex_mem(
 	input wire                   ex_is_in_delayslot,
 	input wire[`RegBus]          ex_current_inst_address,
 	
-	//ËÍµ½·Ã´æ½×¶ÎµÄÐÅÏ¢
+	//ï¿½Íµï¿½ï¿½Ã´ï¿½×¶Îµï¿½ï¿½ï¿½Ï¢
 	output reg[`RegAddrBus]      mem_wd,
 	output reg                   mem_wreg,
 	output reg[`RegBus]					 mem_wdata,
@@ -73,7 +43,7 @@ module ex_mem(
 	output reg[`RegBus]          mem_lo,
 	output reg                   mem_whilo,
 
-  //ÎªÊµÏÖ¼ÓÔØ¡¢·Ã´æÖ¸Áî¶øÌí¼Ó
+  //ÎªÊµï¿½Ö¼ï¿½ï¿½Ø¡ï¿½ï¿½Ã´ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   output reg[`AluOpBus]        mem_aluop,
 	output reg[`RegBus]          mem_mem_addr,
 	output reg[`RegBus]          mem_reg2,

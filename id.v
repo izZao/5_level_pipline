@@ -1,34 +1,3 @@
-//////////////////////////////////////////////////////////////////////
-////                                                              ////
-//// Copyright (C) 2014 leishangwen@163.com                       ////
-////                                                              ////
-//// This source file may be used and distributed without         ////
-//// restriction provided that this copyright statement is not    ////
-//// removed from the file and that any derivative work contains  ////
-//// the original copyright notice and the associated disclaimer. ////
-////                                                              ////
-//// This source file is free software; you can redistribute it   ////
-//// and/or modify it under the terms of the GNU Lesser General   ////
-//// Public License as published by the Free Software Foundation; ////
-//// either version 2.1 of the License, or (at your option) any   ////
-//// later version.                                               ////
-////                                                              ////
-//// This source is distributed in the hope that it will be       ////
-//// useful, but WITHOUT ANY WARRANTY; without even the implied   ////
-//// warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR      ////
-//// PURPOSE.  See the GNU Lesser General Public License for more ////
-//// details.                                                     ////
-////                                                              ////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
-// Module:  id
-// File:    id.v
-// Author:  Lei Silei
-// E-mail:  leishangwen@163.com
-// Description: ÒëÂë½×¶Î
-// Revision: 1.0
-//////////////////////////////////////////////////////////////////////
 
 `include "defines.v"
 
@@ -38,15 +7,15 @@ module id(
 	input wire[`InstAddrBus]			pc_i,
 	input wire[`InstBus]          inst_i,
 
-  //´¦ÓÚÖ´ÐÐ½×¶ÎµÄÖ¸ÁîµÄÒ»Ð©ÐÅÏ¢£¬ÓÃÓÚ½â¾öloadÏà¹Ø
+  //ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½Ö¸ï¿½ï¿½ï¿½Ò»Ð©ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½ï¿½loadï¿½ï¿½ï¿½
   input wire[`AluOpBus]					ex_aluop_i,
 
-	//´¦ÓÚÖ´ÐÐ½×¶ÎµÄÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷ÐÅÏ¢
+	//ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð½×¶Îµï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	input wire										ex_wreg_i,
 	input wire[`RegBus]						ex_wdata_i,
 	input wire[`RegAddrBus]       ex_wd_i,
 	
-	//´¦ÓÚ·Ã´æ½×¶ÎµÄÖ¸ÁîÒªÐ´ÈëµÄÄ¿µÄ¼Ä´æÆ÷ÐÅÏ¢
+	//ï¿½ï¿½ï¿½Ú·Ã´ï¿½×¶Îµï¿½Ö¸ï¿½ï¿½ÒªÐ´ï¿½ï¿½ï¿½Ä¿ï¿½Ä¼Ä´ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 	input wire										mem_wreg_i,
 	input wire[`RegBus]						mem_wdata_i,
 	input wire[`RegAddrBus]       mem_wd_i,
@@ -54,16 +23,16 @@ module id(
 	input wire[`RegBus]           reg1_data_i,
 	input wire[`RegBus]           reg2_data_i,
 
-	//Èç¹ûÉÏÒ»ÌõÖ¸ÁîÊÇ×ªÒÆÖ¸Áî£¬ÄÇÃ´ÏÂÒ»ÌõÖ¸ÁîÔÚÒëÂëµÄÊ±ºòis_in_delayslotÎªtrue
+	//ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½×ªï¿½ï¿½Ö¸ï¿½î£¬ï¿½ï¿½Ã´ï¿½ï¿½Ò»ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½is_in_delayslotÎªtrue
 	input wire                    is_in_delayslot_i,
 
-	//ËÍµ½regfileµÄÐÅÏ¢
+	//ï¿½Íµï¿½regfileï¿½ï¿½ï¿½ï¿½Ï¢
 	output reg                    reg1_read_o,
 	output reg                    reg2_read_o,     
 	output reg[`RegAddrBus]       reg1_addr_o,
 	output reg[`RegAddrBus]       reg2_addr_o, 	      
 	
-	//ËÍµ½Ö´ÐÐ½×¶ÎµÄÐÅÏ¢
+	//ï¿½Íµï¿½Ö´ï¿½Ð½×¶Îµï¿½ï¿½ï¿½Ï¢
 	output reg[`AluOpBus]         aluop_o,
 	output reg[`AluSelBus]        alusel_o,
 	output reg[`RegBus]           reg1_o,
@@ -117,8 +86,8 @@ module id(
 
   assign inst_o = inst_i;
 
-  //exceptiontypeµÄµÍ8bitÁô¸øÍâ²¿ÖÐ¶Ï£¬µÚ9bit±íÊ¾ÊÇ·ñÊÇsyscallÖ¸Áî
-  //µÚ10bit±íÊ¾ÊÇ·ñÊÇÎÞÐ§Ö¸Áî£¬µÚ11bit±íÊ¾ÊÇ·ñÊÇtrapÖ¸Áî
+  //exceptiontypeï¿½Äµï¿½8bitï¿½ï¿½ï¿½ï¿½â²¿ï¿½Ð¶Ï£ï¿½ï¿½ï¿½9bitï¿½ï¿½Ê¾ï¿½Ç·ï¿½ï¿½ï¿½syscallÖ¸ï¿½ï¿½
+  //ï¿½ï¿½10bitï¿½ï¿½Ê¾ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ð§Ö¸ï¿½î£¬ï¿½ï¿½11bitï¿½ï¿½Ê¾ï¿½Ç·ï¿½ï¿½ï¿½trapÖ¸ï¿½ï¿½
   assign excepttype_o = {19'b0,excepttype_is_eret,2'b0,
   												instvalid, excepttype_is_syscall,8'b0};
   //assign excepttye_is_trapinst = 1'b0;
@@ -359,7 +328,7 @@ module id(
 								end	
 					 endcase									
 					end									  
-		  	`EXE_ORI:			begin                        //ORIÖ¸Áî
+		  	`EXE_ORI:			begin                        //ORIÖ¸ï¿½ï¿½
 		  		wreg_o <= `WriteEnable;		aluop_o <= `EXE_OR_OP;
 		  		alusel_o <= `EXE_RES_LOGIC; reg1_read_o <= 1'b1;	reg2_read_o <= 1'b0;	  	
 					imm <= {16'h0, inst_i[15:0]};		wd_o <= inst_i[20:16];
